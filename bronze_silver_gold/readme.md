@@ -71,11 +71,10 @@ Schema: Dimension and fact tables optimized for queries
 Operations: Daily refresh with incremental MERGE
 
 Tables:
-
-member: One row per member line
-DimMember - SCD Type 2 for member demographics
-DimProvider - Current provider master
-DimDate - Standard date dimension
+rxclaims: One row per member line
+rxMember - SCD Type 2 for member demographics
+rxProvider - Current rx provider master
+rxDate - Standard date dimension
 
 ## Key Techniques
 
@@ -144,10 +143,10 @@ Set table retention policies to auto-delete old files
 
 ## Files in This Pattern
 
-bronze_member_load.py - Raw landing to Delta Bronze
+bronze_rx_claims_load.py - Raw landing to Delta Bronze
 
-silver_member_load.py - Quality checks and deduplication
+silver_rx_claims_load.py - Quality checks and deduplication
 
-gold_member_load.py - Star schema modeling
+gold_rx_claims_load.py - Star schema modeling
 
 Optimize performance with advanced techniques (partitioning strategies, caching)
