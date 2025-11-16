@@ -1,7 +1,7 @@
 ### Implement data lakehouse with-Azure-Databricks
-Leverage Data Build Tool,Apache Spark on Azure Databricks to run big data engineering workloads in the cloud.
+Leverage Apache Spark on Azure Databricks to run big data engineering workloads in the cloud.
 
-Description: This repository provides a hands-on guide to building a data lakehouse platform with Azure Databricks. You’ll learn how to use Data Build Tool,Apache Spark for large-scale data engineering, manage workflows efficiently, and deliver reliable analytics in the cloud. The project covers everything from ingesting raw data to transforming it into 
+Description: This repository provides a hands-on guide to building a data lakehouse platform with Azure Databricks. You’ll learn how to use Apache Spark for large-scale data engineering, manage workflows efficiently, and deliver reliable analytics in the cloud. The project covers everything from ingesting raw data to transforming it into 
 trusted datasets ready for dashboards and reporting.
 
 ### 🛠 Steps to Build a Lakehouse on Azure Databricks
