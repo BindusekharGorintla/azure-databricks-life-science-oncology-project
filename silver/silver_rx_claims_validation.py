@@ -1,7 +1,7 @@
-﻿"""
-Silver Layer - Claims Validation and Cleansing
+"""
+Silver Layer - rx_claims Validation and Cleansing
 ==============================================
-Transforms Bronze raw claims into validated, deduplicated Silver layer.
+Transforms Bronze raw rx_claims into validated, deduplicated Silver layer.
 
 Key Principles:
 - Enforce schema and data quality rules
@@ -23,12 +23,12 @@ from pyspark.sql.window import Window
 from delta.tables import DeltaTable
 from datetime import datetime, timedelta
 
-spark = SparkSession.builder.appName("Silver Claims Validation").getOrCreate()
+spark = SparkSession.builder.appName("Silver rx_claims Validation").getOrCreate()
 
 # Configuration
-BRONZE_PATH = "/mnt/bronze/healthcare/claims"
-SILVER_PATH = "/mnt/silver/healthcare/claims"
-DQ_FAILURES_PATH = "/mnt/silver/healthcare/claims_dq_failures"
+BRONZE_PATH = "/mnt/bronze/healthcare/rx_claims"
+SILVER_PATH = "/mnt/silver/healthcare/rx_claims"
+DQ_FAILURES_PATH = "/mnt/silver/healthcare/rx_claims_dq_failures"
 WATERMARK_TABLE = "control.watermarks"
 
 # Valid procedure code patterns (simplified for demo)
@@ -44,7 +44,7 @@ def get_last_processed_timestamp():
     try:
         watermark_df = spark.table(WATERMARK_TABLE)
         last_ts = watermark_df \
-            .filter(col("table_name") == "silver.claims") \
+            .filter(col("table_name") == "silver.rx_claims") \
             .select(spark_max("last_processed_timestamp")) \
             .first()[0]
         return last_ts
@@ -58,7 +58,7 @@ def update_watermark(max_timestamp):
     Update high-water mark after successful Silver load.
     """
     watermark_data = [(
-        "silver.claims",
+        "silver.rx_claims",
         max_timestamp,
         current_timestamp()
     )]
@@ -129,7 +129,7 @@ def apply_data_quality_rules(df):
         ).otherwise(col("dq_failure_reasons"))
     )
     
-    # Rule 5: Billed amount > 0 (or null for capitated claims)
+    # Rule 5: Billed amount > 0 (or null for capitated rx_claims)
     validated_df = validated_df.withColumn(
         "dq_failure_reasons",
         when(
@@ -170,9 +170,9 @@ def cleanse_and_standardize(df):
     return cleansed_df
 
 
-def deduplicate_claims(df):
+def deduplicate_rx_claims(df):
     """
-    Handle duplicate claims by keeping most recent version.
+    Handle duplicate rx_claims by keeping most recent version.
     
     Deduplication Strategy:
     - Group by claim_id (business key)
@@ -198,7 +198,7 @@ def process_bronze_to_silver():
     Main ETL logic: Bronze → Silver with validation and deduplication.
     """
     
-    print("Starting Silver claims processing...")
+    print("Starting Silver rx_claims processing...")
     
     # Step 1: Read incremental data from Bronze
     last_processed = get_last_processed_timestamp()
@@ -242,7 +242,7 @@ def process_bronze_to_silver():
             .save(DQ_FAILURES_PATH)
     
     # Step 5: Deduplicate by claim_id
-    deduped_df = deduplicate_claims(pass_df)
+    deduped_df = deduplicate_rx_claims(pass_df)
     
     # Step 6: Add Silver metadata columns
     silver_df = deduped_df \
@@ -281,7 +281,7 @@ def process_bronze_to_silver():
             .save(SILVER_PATH)
     
     # Register as table
-    spark.sql(f"CREATE TABLE IF NOT EXISTS silver.claims USING DELTA LOCATION '{SILVER_PATH}'")
+    spark.sql(f"CREATE TABLE IF NOT EXISTS silver.rx_claims USING DELTA LOCATION '{SILVER_PATH}'")
     
     # Step 8: Update watermark for next run
     max_ingestion_ts = bronze_df.agg(spark_max("ingestion_timestamp")).first()[0]
