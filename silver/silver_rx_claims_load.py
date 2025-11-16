@@ -1,28 +1,19 @@
-"""
-Silver Layer - rx_claims Validation and Cleansing
-==============================================
-Transforms Bronze raw rx_claims into validated, deduplicated Silver layer.
+# Silver Layer - rx_claims Validation and Cleansing
+# =================================================
+# Transforms Bronze raw rx_claims into validated, deduplicated Silver layer.
 
-Key Principles:
-- Enforce schema and data quality rules
-- Deduplicate by business key (claim_id)
-- Handle late-arriving data with MERGE
-- Log quality failures without blocking pipeline
-
-Author: Harsha Morram
-Pattern: Medallion Architecture - Silver Layer
-"""
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
     col, when, current_timestamp, lit, coalesce, 
-    to_date, datediff, regexp_replace, upper, trim,
+    to_date, regexp_replace, upper, trim,
     row_number, max as spark_max
 )
 from pyspark.sql.window import Window
 from delta.tables import DeltaTable
 from datetime import datetime, timedelta
 
+# Initialize Spark session
 spark = SparkSession.builder.appName("Silver rx_claims Validation").getOrCreate()
 
 # Configuration
@@ -34,7 +25,6 @@ WATERMARK_TABLE = "control.watermarks"
 # Valid procedure code patterns (simplified for demo)
 VALID_CPT_PATTERN = "^[0-9]{5}$"  # CPT codes are 5 digits
 VALID_HCPCS_PATTERN = "^[A-Z][0-9]{4}$"  # HCPCS Level II
-
 
 def get_last_processed_timestamp():
     """
@@ -51,7 +41,6 @@ def get_last_processed_timestamp():
     except:
         print("Watermark table not found or first run - processing all Bronze data")
         return None
-
 
 def update_watermark(max_timestamp):
     """
@@ -72,7 +61,6 @@ def update_watermark(max_timestamp):
         .format("delta") \
         .mode("append") \
         .saveAsTable(WATERMARK_TABLE)
-
 
 def apply_data_quality_rules(df):
     """
@@ -146,7 +134,6 @@ def apply_data_quality_rules(df):
     
     return validated_df
 
-
 def cleanse_and_standardize(df):
     """
     Apply cleansing and standardization rules.
@@ -169,7 +156,6 @@ def cleanse_and_standardize(df):
     
     return cleansed_df
 
-
 def deduplicate_rx_claims(df):
     """
     Handle duplicate rx_claims by keeping most recent version.
@@ -191,7 +177,6 @@ def deduplicate_rx_claims(df):
         .drop("row_num")
     
     return deduped_df
-
 
 def process_bronze_to_silver():
     """
@@ -247,73 +232,4 @@ def process_bronze_to_silver():
     # Step 6: Add Silver metadata columns
     silver_df = deduped_df \
         .withColumn("silver_updated_timestamp", current_timestamp()) \
-        .withColumn("silver_load_id", lit(spark.sparkContext.getConf().get("spark.databricks.job.id", "manual"))) \
-        .drop("dq_status", "dq_failure_reasons")  # Drop DQ columns, already logged
-    
-    print(f"Silver records ready to load: {silver_df.count()}")
-    
-    # Step 7: MERGE into Silver Delta table (upsert by claim_id)
-    if DeltaTable.isDeltaTable(spark, SILVER_PATH):
-        print("Merging into existing Silver table...")
-        
-        silver_table = DeltaTable.forPath(spark, SILVER_PATH)
-        
-        silver_table.alias("target").merge(
-            silver_df.alias("source"),
-            "target.claim_id = source.claim_id"
-        ).whenMatchedUpdateAll() \
-         .whenNotMatchedInsertAll() \
-         .execute()
-        
-    else:
-        print("Creating new Silver table...")
-        
-        # Partition by service_year_month for analytical queries
-        silver_df = silver_df.withColumn(
-            "service_year_month",
-            col("service_date").substr(1, 7)  # YYYY-MM
-        )
-        
-        silver_df.write \
-            .format("delta") \
-            .mode("overwrite") \
-            .partitionBy("service_year_month") \
-            .save(SILVER_PATH)
-    
-    # Register as table
-    spark.sql(f"CREATE TABLE IF NOT EXISTS silver.rx_claims USING DELTA LOCATION '{SILVER_PATH}'")
-    
-    # Step 8: Update watermark for next run
-    max_ingestion_ts = bronze_df.agg(spark_max("ingestion_timestamp")).first()[0]
-    update_watermark(max_ingestion_ts)
-    
-    print("Silver processing completed successfully")
-    
-    return {
-        "records_processed": record_count,
-        "records_passed": pass_df.count(),
-        "records_failed": fail_count,
-        "records_loaded": silver_df.count()
-    }
-
-
-if __name__ == "__main__":
-    """
-    Execute Silver layer processing.
-    """
-    
-    try:
-        stats = process_bronze_to_silver()
-        
-        print(f"\n✓ Silver load successful:")
-        print(f"  - Processed: {stats['records_processed']}")
-        print(f"  - Passed DQ: {stats['records_passed']}")
-        print(f"  - Failed DQ: {stats['records_failed']}")
-        print(f"  - Loaded to Silver: {stats['records_loaded']}")
-        
-    except Exception as e:
-        print(f"\n✗ Silver load failed: {str(e)}")
-        raise
-    
-    finally:
-        spark.stop(
+        .withColumn("silver_load
