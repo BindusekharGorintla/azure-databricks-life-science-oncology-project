@@ -1,6 +1,6 @@
 # Azure Databricks Life Science Oncology Project
 
-Leverage **Apache Spark** on **Azure Databricks** to run life science oncology data engineering workloads in the cloud. This project demonstrates how to build a **Data Lakehouse** for healthcare analytics, focusing on cancer patient datasets.
+Leverage **Autoloader**, **Apache Spark** on **Azure Databricks** to run life science oncology data engineering workloads in the cloud. This project demonstrates how to build a **Data Lakehouse** for healthcare analytics, focusing on cancer patient datasets.
 
 ## Description
 This repository provides a hands-on guide to building a **Data Lakehouse** platform with **Azure Databricks** for oncology research. You’ll learn how to use **Autoloader** to ingest files from volumes into the **Bronze layer**, and how to apply **Delta Live Tables (DLT)** to transform and load data into **Silver** and **Gold** layers. The pipeline ensures schema enforcement, data quality, and reliable analytics for life science use cases.
@@ -15,7 +15,7 @@ This repository provides a hands-on guide to building a **Data Lakehouse** platf
 - Ensure access to **Azure Data Lake Storage Gen2 (ADLS)** for storing oncology datasets.
 
 ### 2. Ingest Data with Autoloader
-- Use **Autoloader** to continuously extract files from **ADLS volumes**.
+- Use **Autoloader** to continuously extract files from **volumes** or **ADLS volumes**.
 - Automatically detect new files and load them into the **Bronze layer**.
 - Store raw oncology data (e.g., patient records, observations, TNM staging).
 
@@ -49,6 +49,10 @@ This repository provides a hands-on guide to building a **Data Lakehouse** platf
 - Optimize queries with **Z-ordering** and **caching**.
 - Leverage **DLT continuous mode** for near real-time updates.
 
+## 👨‍💻 Contributing
+Fork the repository, submit pull requests, or raise issues for improvements.
+
 ---
 
-## 📂 Suggested Folder Structure
+## 📧 Contact
+For questions or support, reach out to **Bindusekhar Gorintla** at *gorintla.bindusekhar@gmail.com*.
