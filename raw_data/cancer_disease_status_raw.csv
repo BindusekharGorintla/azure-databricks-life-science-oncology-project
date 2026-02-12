@@ -1,0 +1,11 @@
+Patient_ID,Cancer_Disease_Status,Last_Update,On_Treatment
+P001,Active,2026-01-15,Yes
+P002,Remission,2025-12-20,No
+P003,Progressive,2026-01-10,Yes
+P004,Stable,2026-01-05,Yes
+P005,Active,2026-01-18,Yes
+P006,Remission,2025-11-30,No
+P007,Progressive,2026-01-22,Yes
+P008,Stable,2026-01-12,Yes
+P009,Active,2026-01-08,Yes
+P010,Remission,2025-12-25,No

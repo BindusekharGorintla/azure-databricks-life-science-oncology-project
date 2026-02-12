@@ -1,0 +1,11 @@
+Patient_ID,Observation,Doctor,Observation_Date
+P001,Elevated tumor markers,Dr. Menon,2026-01-15
+P002,No detectable lesions,Dr. Kapoor,2025-12-20
+P003,Increase in lymph node size,Dr. Reddy,2026-01-10
+P004,Lesion unchanged over 6 months,Dr. Sharma,2026-01-05
+P005,New hepatic metastasis,Dr. Iyer,2026-01-18
+P006,Clear PET scan,Dr. Banerjee,2025-11-30
+P007,Multiple pulmonary nodules,Dr. Thomas,2026-01-22
+P008,Minimal residual disease,Dr. Gupta,2026-01-12
+P009,Elevated CEA levels,Dr. Srinivasan,2026-01-08
+P010,No recurrence after 2 years,Dr. Joshi,2025-12-25

@@ -1,0 +1,11 @@
+Patient_ID,TNM_Stage_Group,Tumor_Size_cm,Node_Involvement,Metastasis
+P001,T2N1M0,3.5,Yes,No
+P002,T1N0M0,1.2,No,No
+P003,T3N2M0,5.0,Yes,No
+P004,T2N0M0,3.0,No,No
+P005,T3N1M1,6.2,Yes,Yes
+P006,T1N0M0,2.0,No,No
+P007,T4N2M1,7.5,Yes,Yes
+P008,T2N1M0,3.8,Yes,No
+P009,T3N1M0,4.5,Yes,No
+P010,T1N0M0,2.1,No,No

@@ -1,0 +1,13 @@
+Patient_ID,Name,Age,Gender,Cancer_Patient
+P001,Asha Rao,52,Female,Yes
+P002,Rajesh Kumar,61,Male,Yes
+P003,Meena Iyer,47,Female,Yes
+P004,Vikram Singh,68,Male,Yes
+P005,Anita Sharma,55,Female,Yes
+P006,Suresh Patel,59,Male,Yes
+P007,Leela Nair,44,Female,Yes
+P008,Arun Das,63,Male,Yes
+P009,Kavita Joshi,50,Female,Yes
+P010,Manoj Verma,57,Male,Yes
+
+

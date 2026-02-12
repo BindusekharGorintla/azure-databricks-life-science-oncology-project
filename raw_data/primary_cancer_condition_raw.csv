@@ -1,0 +1,11 @@
+Patient_ID,Primary_Cancer_Condition,Diagnosis_Date,Hospital
+P001,Breast Carcinoma,2024-08-12,Apollo Hospitals
+P002,Lung Adenocarcinoma,2023-11-03,AIIMS Delhi
+P003,Colorectal Cancer,2024-05-19,Fortis Chennai
+P004,Prostate Cancer,2023-09-25,CMC Vellore
+P005,Hepatocellular Carcinoma,2024-07-14,Narayana Health
+P006,Ovarian Cancer,2023-12-01,Max Healthcare
+P007,Melanoma,2024-06-22,KIMS Hyderabad
+P008,Pancreatic Cancer,2024-03-18,Manipal Hospitals
+P009,Gastric Cancer,2024-04-10,Sankara Nethralaya
+P010,Bladder Cancer,2023-10-05,Tata Memorial
