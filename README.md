@@ -1,85 +1,54 @@
-# Implement Data Lakehouse with Azure Databricks
+# Azure Databricks Life Science Oncology Project
 
-Leverage **Apache Spark** on **Azure Databricks** to run big data engineering workloads in the cloud.
+Leverage **Apache Spark** on **Azure Databricks** to run life science oncology data engineering workloads in the cloud. This project demonstrates how to build a **Data Lakehouse** for healthcare analytics, focusing on cancer patient datasets.
 
 ## Description
-This repository provides a hands-on guide to building a **Data Lakehouse** platform with **Azure Databricks**. You'll learn how to use **Apache Spark** for large-scale data engineering, manage workflows efficiently, and deliver reliable analytics in the cloud. The project covers everything from ingesting raw data to transforming it into trusted datasets ready for dashboards and reporting.
+This repository provides a hands-on guide to building a **Data Lakehouse** platform with **Azure Databricks** for oncology research. You’ll learn how to use **Autoloader** to ingest files from volumes into the **Bronze layer**, and how to apply **Delta Live Tables (DLT)** to transform and load data into **Silver** and **Gold** layers. The pipeline ensures schema enforcement, data quality, and reliable analytics for life science use cases.
 
 ---
 
-## 🛠 Steps to Build a Lakehouse on Azure Databricks
+## 🛠 Steps to Build the Oncology Lakehouse
 
 ### 1. Set up Azure Databricks
-
 - Create an **Azure Databricks workspace** in your Azure portal.
-- Configure **clusters** (compute resources) for running Spark jobs.
-- Ensure access to **Azure Data Lake Storage (ADLS)** for storing raw data.
+- Configure **clusters** for Spark jobs.
+- Ensure access to **Azure Data Lake Storage Gen2 (ADLS)** for storing oncology datasets.
 
-### 2. Ingest Data into the Lakehouse
+### 2. Ingest Data with Autoloader
+- Use **Autoloader** to continuously extract files from **ADLS volumes**.
+- Automatically detect new files and load them into the **Bronze layer**.
+- Store raw oncology data (e.g., patient records, observations, TNM staging).
 
-- Connect to various data sources (databases, APIs, files, streaming).
-- Use **Azure Data Factory** or **Databricks notebooks** to load data into **ADLS Gen2**.
-- Store raw data in the **Bronze layer** (raw, unprocessed data).
-
-### 3. Transform and Clean Data
-
-- Use **DBT** or **Apache Spark** in Databricks to process and clean data.
-- Organize data into the following layers:
-  - **Bronze**: Raw data
-  - **Silver**: Cleaned and structured data
-  - **Gold**: Curated, business-ready data for analytics
-- Apply **schema enforcement** and **data quality checks** (e.g., with **Databricks DQX** if needed).
+### 3. Transform Data with Delta Live Tables (DLT)
+- Define **DLT pipelines** to process Bronze data into **Silver**.
+- Apply schema validation, deduplication, and data quality rules.
+- Organize data into:
+  - **Bronze**: Raw ingested data
+  - **Silver**: Cleaned, structured datasets (patient, disease status, observations)
+  - **Gold**: Curated datasets for advanced analytics and reporting
 
 ### 4. Enable Delta Lake
-
-- Store data in **Delta Lake format** (built on **Parquet**).
-- **Benefits**:
+- Store data in **Delta Lake format** for reliability.
+- Benefits:
   - ACID transactions
-  - Versioning
-  - Time travel
+  - Versioning & time travel
   - Scalable queries
-- This makes your lakehouse **reliable** and **easy to query**.
 
-### 5. Manage and Track Models
+### 5. Query and Analyze
+- Use **Databricks SQL** or **Spark SQL** to query Silver/Gold tables.
+- Connect BI tools (Power BI, Tableau) for oncology dashboards.
+- Build reports on cancer progression, treatment outcomes, and patient cohorts.
 
-- Use **MLflow** (built into Databricks) to track experiments, models, and metrics.
-- Register models in the **MLflow Model Registry** for deployment.
+### 6. Secure and Monitor
+- Apply **RBAC** in Azure for data security.
+- Monitor pipelines with **DLT dashboards** and **Databricks jobs**.
+- Set alerts for ingestion failures or schema mismatches.
 
-### 6. Query and Analyze Data
-
-- Use **Databricks SQL** or **Spark SQL** to query curated tables.
-- Connect BI tools (like **Power BI** or **Tableau**) to the **Gold layer** for dashboards.
-- Build **reports** and **visualizations** directly from trusted lakehouse tables.
-
-### 7. Secure and Monitor
-
-- Apply **role-based access control (RBAC)** in **Azure** to secure your data.
-- Monitor pipelines with **Databricks jobs** and logging.
-- Set **alerts** for failures or data quality issues.
-
-### 8. Scale and Optimize
-
-- **Auto-scale** clusters for large workloads.
-- Use **Delta Live Tables** for continuous ETL pipelines.
+### 7. Scale and Optimize
+- Use **auto-scaling clusters** for large oncology datasets.
 - Optimize queries with **Z-ordering** and **caching**.
+- Leverage **DLT continuous mode** for near real-time updates.
 
 ---
 
-## 📚 Further Reading
-
-For detailed documentation and advanced features, check out the official **Azure Databricks** and **Delta Lake** documentation:
-- [Azure Databricks Documentation](https://docs.microsoft.com/en-us/azure/databricks/)
-- [Delta Lake Documentation](https://docs.delta.io/)
-
----
-
-## 👨‍💻 Contributing
-
-Feel free to fork the repository, submit pull requests, or raise issues for improvements!
-
----
-
-## 📧 Contact
-
-For questions or support, reach out to **Bindusekhar Gorintla** at (gorintla.bindusekhar@gmail.com).
-
+## 📂 Suggested Folder Structure
