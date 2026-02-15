@@ -3,55 +3,57 @@ resources:
     end_to_end_lifescience_project_job:
       name: end-to-end-lifescience-project-job
       tasks:
-        - task_key: diagnosis_raw_ingestion_task
+        - task_key: cancer_patient_raw_ingestion_task
           notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/bronze/diagnosis_raw_data_ingestion
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/cancer_patient_data_ingestion
             source: WORKSPACE
-        - task_key: dim_diagnosis_ingestion
+        - task_key: cancer_patient_ingestion
           depends_on:
-            - task_key: diagnosis_raw_ingestion_task
+            - task_key: cancer_patient_raw_ingestion_task
           notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/silver/dim_diagnosis_ingestion
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/cancer_patient_data_load
             source: WORKSPACE
-        - task_key: hospitals_raw_ingestion_task
+        - task_key: cancer_disease_status_raw_ingestion_task
           notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/bronze/hospitals_raw_data_ingestion
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/cancer_disease_status_data_ingestion
             source: WORKSPACE
-        - task_key: dim_hospital_ingestion
+        - task_key: cancer_disease_status_ingestion
           depends_on:
-            - task_key: hospitals_raw_ingestion_task
+            - task_key: cancer_disease_status_raw_ingestion_task
           notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/silver/dim_hospital_ingestion
+            notebook_path:  /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/cancer_disease_status_data_load
             source: WORKSPACE
-        - task_key: patients_raw_ingestion_task
+        - task_key: observation_raw_ingestion_task
           notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/bronze/patients_raw_data_ingestion
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/observation_status_data_ingestion
             source: WORKSPACE
-        - task_key: dim_patient_ingestion
+        - task_key: observation_ingestion
           depends_on:
-            - task_key: patients_raw_ingestion_task
+            - task_key: observation_raw_ingestion_task
           notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/silver/dim_patient_ingestion
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/observation_data_load
             source: WORKSPACE
-        - task_key: fact_visit_ingestion
+        - task_key: primary_cancer_condition_raw_ingestion_task
+          notebook_task:
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/primary_cancer_condition_data_ingestion
+            source: WORKSPACE
+        - task_key: primary_cancer_condition_ingestion
           depends_on:
-            - task_key: dim_patient_ingestion
-            - task_key: dim_hospital_ingestion
-            - task_key: dim_diagnosis_ingestion
-            - task_key: visits_raw_ingestion_task
+            - task_key: primary_cancer_condition_raw_ingestion_task
           notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/silver/fact_visit_ingestion
+            notebook_path:  /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/primary_cancer_condition_data_load
             source: WORKSPACE
-        - task_key: resubmission_analysis
+        - task_key: tnm_stage_group_raw_ingestion_task
+          notebook_task:
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/tnm_stage_group_status_data_ingestion
+            source: WORKSPACE
+        - task_key: tnm_stage_group_ingestion
           depends_on:
-            - task_key: fact_visit_ingestion
+            - task_key: tnm_stage_group_raw_ingestion_task
           notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/gold/resubmission_analysis
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/tnm_stage_group_data_load
             source: WORKSPACE
-        - task_key: visits_raw_ingestion_task
-          notebook_task:
-            notebook_path: /Workspace/Users/anirvankafka_gmail.com#ext#@anirvankafkagmail.onmicrosoft.com/Azure-Databricks-Real-World-Healthcare-End-to-End-Project/bronze/visits_raw_data_ingestion
-            source: WORKSPACE
+        
       queue:
         enabled: true
       performance_target: PERFORMANCE_OPTIMIZED
