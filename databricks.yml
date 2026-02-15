@@ -1,0 +1,17 @@
+bundle:
+  name: lifescience-end-to-end-project
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    workspace:
+      host: https://dbc-50a782d7-ee0e.cloud.databricks.com/
+    
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-50a782d7-ee0e.cloud.databricks.com/
+      root_path: /Workspace/.bundle/${bundle.name}/${bundle.target}
