@@ -3,7 +3,7 @@
 Leverage **Autoloader**, **Apache Spark** on **Azure Databricks** to run life science oncology data engineering workloads in the cloud. This project demonstrates how to build a **Data Lakehouse** for healthcare analytics, focusing on cancer patient datasets.
 
 ## Description
-This repository provides a hands-on guide to building a **Data Lakehouse** platform with **Azure Databricks** for oncology research. You’ll learn how to use **Autoloader** to ingest files from volumes into the **Bronze layer**, and how to apply **Delta Live Tables (DLT)** to transform and load data into **Silver** and **Gold** layers. The pipeline ensures schema enforcement, data quality, and reliable analytics for life science use cases.
+This repository provides a hands-on guide to building a **Data Lakehouse** platform with **Azure Databricks** for oncology research. You’ll learn how to use **Autoloader** to ingest files from volumes into the **Bronze layer**, and how to apply **Change Data Capture (CDC)** to transform and load data into **Silver** and **Gold** layers. The pipeline ensures schema enforcement, data quality, and reliable analytics for life science use cases.
 
 ---
 
