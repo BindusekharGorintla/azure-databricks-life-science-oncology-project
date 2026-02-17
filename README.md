@@ -19,13 +19,18 @@ This repository provides a hands-on guide to building a **Data Lakehouse** platf
 - Automatically detect new files and load them into the **Bronze layer**.
 - Store raw oncology data (e.g., patient records, observations, TNM staging).
 
-### 3. Transform Data with Delta Live Tables (DLT)
-- Define **DLT pipelines** to process Bronze data into **Silver**.
-- Apply schema validation, deduplication, and data quality rules.
-- Organize data into:
-  - **Bronze**: Raw ingested data
-  - **Silver**: Cleaned, structured datasets (patient, disease status, observations)
-  - **Gold**: Curated datasets for advanced analytics and reporting
+### 3. Change Data Capture (CDC)
+
+CDC pipelines track incremental changes in source data using **timestamps** or other change indicators, rather than full refreshes.
+
+- Ingest raw data into the **Bronze layer** with append-only writes.
+- Use **event timestamps** (e.g., `last_updated`, `ingestion_time`) to identify new or modified records since the last run.
+- Apply **schema validation, deduplication, and data quality rules** during transformation.
+- Organize data following the **Medallion Architecture**:
+  - **Bronze**: Raw ingested data (e.g., patient records with ingestion timestamp).
+  - **Silver**: Cleaned and structured datasets (e.g., patient profiles, disease status, clinical observations), filtered by latest timestamp.
+  - **Gold**: Curated datasets optimized for advanced analytics, reporting, and machine learning.
+
 
 ### 4. Enable Delta Lake
 - Store data in **Delta Lake format** for reliability.
