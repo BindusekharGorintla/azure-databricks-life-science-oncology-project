@@ -12,7 +12,7 @@ This repository provides a hands-on guide to building a **Data Lakehouse** platf
 ### 1. Set up Azure Databricks
 - Create an **Azure Databricks workspace** in your Azure portal.
 - Configure **clusters** for Spark jobs.
-- Ensure access to **Azure Data Lake Storage Gen2 (ADLS)** for storing oncology datasets.
+- Ensure access to **Azure Data Lake Storage Gen2 (ADLS)** or **Volumes** for storing oncology datasets.
 
 ### 2. Ingest Data with Autoloader
 - Use **Autoloader** to continuously extract files from **volumes** or **ADLS volumes**.
