@@ -7,53 +7,62 @@ resources:
           notebook_task:
             notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/cancer_patient_data_ingestion
             source: WORKSPACE
+
         - task_key: cancer_patient_ingestion
           depends_on:
             - task_key: cancer_patient_raw_ingestion_task
           notebook_task:
             notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/cancer_patient_data_load
             source: WORKSPACE
+
         - task_key: cancer_disease_status_raw_ingestion_task
           notebook_task:
             notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/cancer_disease_status_data_ingestion
             source: WORKSPACE
+
         - task_key: cancer_disease_status_ingestion
           depends_on:
             - task_key: cancer_disease_status_raw_ingestion_task
           notebook_task:
-            notebook_path:  /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/cancer_disease_status_data_load
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/cancer_disease_status_data_load
             source: WORKSPACE
+
         - task_key: observation_raw_ingestion_task
           notebook_task:
             notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/observation_status_data_ingestion
             source: WORKSPACE
+
         - task_key: observation_ingestion
           depends_on:
             - task_key: observation_raw_ingestion_task
           notebook_task:
             notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/observation_data_load
             source: WORKSPACE
+
         - task_key: primary_cancer_condition_raw_ingestion_task
           notebook_task:
             notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/primary_cancer_condition_data_ingestion
             source: WORKSPACE
+
         - task_key: primary_cancer_condition_ingestion
           depends_on:
             - task_key: primary_cancer_condition_raw_ingestion_task
           notebook_task:
-            notebook_path:  /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/primary_cancer_condition_data_load
+            notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/primary_cancer_condition_data_load
             source: WORKSPACE
+
         - task_key: tnm_stage_group_raw_ingestion_task
           notebook_task:
             notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/bronze/tnm_stage_group_status_data_ingestion
             source: WORKSPACE
+
         - task_key: tnm_stage_group_ingestion
           depends_on:
             - task_key: tnm_stage_group_raw_ingestion_task
           notebook_task:
             notebook_path: /Workspace/Users/gorintla.bindusekhar@gmail.com/RWD_Project/silver/tnm_stage_group_data_load
             source: WORKSPACE
-        
+
       queue:
         enabled: true
       performance_target: PERFORMANCE_OPTIMIZED
