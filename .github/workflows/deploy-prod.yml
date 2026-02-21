@@ -16,10 +16,13 @@ jobs:
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main
       
+      - name: Validate Bundle
+        run: |
+          databricks bundle validate -t prod
+      
       - name: Deploy to Production
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
           databricks bundle deploy -t prod
-      
