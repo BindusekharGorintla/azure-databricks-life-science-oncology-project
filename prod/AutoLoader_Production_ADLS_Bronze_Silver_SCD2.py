@@ -298,9 +298,3 @@ def ingest_silver():
     query.awaitTermination()
     log.info(f"Silver SCD2 pipeline complete → {SILVER_TABLE}")
 
-
-     │
-     ▼  foreachBatch + MERGE
-  Silver Delta (SCD2)
-     ├── is_current = true   → latest record
-     └── is_current = false  → historical versions
