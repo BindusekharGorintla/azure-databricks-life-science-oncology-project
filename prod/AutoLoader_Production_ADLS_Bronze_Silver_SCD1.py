@@ -129,65 +129,7 @@ logger.info(f"   Storage: {config.STORAGE_ACCOUNT_NAME}/{config.CONTAINER_NAME}/
 logger.info(f"   Bronze: {config.BRONZE_TABLE}")
 logger.info(f"   Silver: {config.SILVER_TABLE}")
 
-# COMMAND ----------
-
-# DBTITLE 1,Helper Functions
-def time_execution(func):
-    """Decorator to time function execution."""
-    def wrapper(*args, **kwargs):
-        start_time = time.time()
-        result = func(*args, **kwargs)
-        elapsed_time = time.time() - start_time
-        logger.info(f"⏱️  {func.__name__} completed in {elapsed_time:.2f} seconds")
-        return result
-    return wrapper
-
-
-def log_dataframe_info(df: DataFrame, name: str) -> None:
-    """Log DataFrame information."""
-    try:
-        count = df.count()
-        logger.info(f"{name}: {count:,} records")
-    except Exception as e:
-        logger.warning(f"Could not log info for {name}: {str(e)}")
-
-
-def create_quality_report(df: DataFrame, layer: str) -> Dict[str, Any]:
-    """Generate data quality report."""
-    report = {
-        'layer': layer,
-        'timestamp': datetime.now().isoformat(),
-        'total_records': df.count(),
-        'null_checks': {},
-        'duplicates': 0
-    }
-    
-    # Check nulls in key columns
-    for col_name in ['patient_id', 'name', 'dob', 'gender']:
-        if col_name in df.columns:
-            null_count = df.filter(F.col(col_name).isNull()).count()
-            report['null_checks'][col_name] = null_count
-    
-    # Check duplicates
-    if 'patient_id' in df.columns:
-        dup_count = (df
-            .groupBy('patient_id')
-            .count()
-            .filter(F.col('count') > 1)
-            .count()
-        )
-        report['duplicates'] = dup_count
-    
-    return report
-
-print("✅ Helper functions defined")
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ## Step 1: Configure ADLS Gen2 Access
-
-# COMMAND ----------
+# COMMAND ---------
 
 # DBTITLE 1,Setup Service Principal Authentication
 @time_execution
