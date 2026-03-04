@@ -298,34 +298,7 @@ def ingest_silver():
     query.awaitTermination()
     log.info(f"Silver SCD2 pipeline complete → {SILVER_TABLE}")
 
-# ================================================================
-# MAIN ORCHESTRATOR
-# ================================================================
 
-if __name__ == "__main__":
-    log.info("=" * 60)
-    log.info("  ADLS Gen2 → Bronze → Silver (SCD2) Pipeline")
-    log.info("=" * 60)
-
-    setup_tables()          # Step 0: DDL
-
-    ingest_bronze()         # Step 1: Auto Loader CSV → Bronze Delta
-
-    ingest_silver()         # Step 2: Bronze CDF → Silver SCD2
-
-    log.info("=" * 60)
-    log.info("  Pipeline finished successfully.")
-    log.info("=" * 60)
-```
-
----
-
-### Flow Summary
-```
-ADLS Gen2 (CSV)
-     │
-     ▼  cloudFiles (Auto Loader)
-  Bronze Delta  ──► Change Data Feed enabled
      │
      ▼  foreachBatch + MERGE
   Silver Delta (SCD2)
