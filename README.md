@@ -40,7 +40,7 @@ CDC pipelines track incremental changes in source data using **timestamps** or o
   - Scalable queries
 
 ### 5. Query and Analyze
-- Use **Databricks SQL** or **Spark SQL** to query Silver/Gold tables.
+- Use **Databricks SQL** or **Pyspark** to query Silver/Gold tables.
 - Connect BI tools (Power BI, Tableau) for oncology dashboards.
 - Build reports on cancer progression, treatment outcomes, and patient cohorts.
 
